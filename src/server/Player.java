@@ -34,34 +34,33 @@ public class Player {
 	 * the board and any updates and transfers play back an forth between players.
 	 * @throws IOException
 	 */
-	public void play() throws IOException {
+	public void play() {
 		System.out.println();
 		String showBoard = board.display();
 		System.out.println(showBoard);
-		writeMessage("Take your turn");
-		opponent.writeMessage("Player " + mark + "'s turn...");
 		if (!(board.xWins() || board.oWins() || board.isFull())) {
 			writeMessage("enable");
-			String coords = this.makeMove();
+			writeMessage("Take your turn");
+			opponent.writeMessage("Player " + mark + "'s turn...");
+			String coords = null;
+			try {
+				coords = this.makeMove();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			updateOpponent(coords, mark);
 		}
 		else {
 			if (board.isFull()){
-				// This is not working right, please fix.
-				String tied = "The game is tied!";
-				writeMessage(tied);
-				opponent.writeMessage(tied);
-			}
-			else {
-				if (board.xWins() && this.mark == 'X') {
-					printWinner(name);
-				}
-				else if (board.oWins() && this.mark == 'O') {
-					printWinner(name);
+				if(board.xWins() || board.oWins()) {
+					printWinner();
 				}
 				else {
-					printWinner(opponent.name);
+					endingMessage("The game is tied!");
 				}
+			}
+			else {
+				printWinner();
 			}
 			writeMessage("disableAllButtons");
 			opponent.writeMessage("disableAllButtons");
@@ -69,6 +68,27 @@ public class Player {
 		}
 		writeMessage("disable");
 		opponent.play();
+	}
+	
+	private void printWinner() {
+		if(isWinner()) {
+			endingMessage(name + " is the winner!");
+		}
+		else {
+			endingMessage(opponent.name + " is the winner!");
+		}
+	}
+	
+	private boolean isWinner() {
+		if (board.xWins() && this.mark == 'X') {
+			return true;
+		}
+		else if (board.oWins() && this.mark == 'O') {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	private void updateOpponent(String coords, char mark) {
@@ -133,10 +153,11 @@ public class Player {
 	 * Prints out the winner's name
 	 * @param pName the winner's name
 	 */
-	private void printWinner(String pName) {
-//		System.out.println(pName + " is the winner!");
-		writeMessage(pName + " is the winner!");
-		opponent.writeMessage(pName + " is the winner!");
+//	private void printWinner(String name) {
+	private void endingMessage(String message) {
+//		System.out.println("test in printWinner in Player");
+		writeMessage(message);
+		opponent.writeMessage(message);
 	}
 	
 }

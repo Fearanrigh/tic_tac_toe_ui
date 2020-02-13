@@ -30,8 +30,6 @@ public class Client {
 			stdIn = new BufferedReader (new InputStreamReader (System.in));
 			
 			this.client = client;
-			
-			// I don't like doing this this way, there must be a better way!!!
 			client.setSocketIn(socketIn);
 			client.setSocketOut(socketOut);
 		} catch (UnknownHostException e) {
@@ -55,34 +53,35 @@ public class Client {
 			}
 			else if(line.equals("setMark")) {
 				setViewMark();
-				line = "";
+				continue;
 			}
 			else if(line.equals("getNames")) {
 				getPlayerName();
-				line = "";
+				continue;
 			}
 			else if(line.equals("getRowCol")) {
 				getRowOrColumn();
-				line = "";
+				continue;
 			}
 			else if(line.equals("enableAllButtons")) {
 				client.setAllButtonsEnabled(true);
-				line = "";
+				continue;
 			}
 			else if(line.equals("disableAllButtons")) {
 				client.setAllButtonsEnabled(false);
-				line = "";
+				continue;
 			}
 			else if(line.equals("disable")) {
 				client.setEnabled(false);
-				line = "";
+				continue;
 			}
 			else if(line.equals("enable")) {
 				client.setEnabled(true);
+				continue;
 			}
 			else if(line.equals("updateButtons")) {
 				setButtonMark();
-				line = "";
+				continue;
 			}
 			client.setViewMessage(line);
 		}
@@ -116,10 +115,6 @@ public class Client {
 	
 	public void TEST(String message) {
 		System.out.println(message);
-	}
-	
-	private void enableAllButtons() {
-		client.setAllButtonsEnabled(true);
 	}
 	
 	private void setViewMark() {
@@ -196,16 +191,16 @@ public class Client {
 	}
 
 	
-	public static void main (String [] args) throws IOException{
+	public static void main(String[] args) throws IOException{
 		String gameHeading = "tic-tac-toe", initialName = "";
 		int gameWidth = 240, gameHeight = 340;
 		
 		ClientPlayer player = new ClientPlayer(initialName, '-');
 		ClientView view = new ClientView(gameHeading, gameWidth, gameHeight);
-		ClientController client = new ClientController(view, player, null, null);
-		client.setAllButtonsEnabled(false);
-		Client aClient = new Client ("localhost", 9090, client);
-		aClient.communicate();
+		ClientController clientController = new ClientController(view, player, null, null);
+		clientController.setAllButtonsEnabled(false);
+		Client client = new Client ("localhost", 9090, clientController);
+		client.communicate();
 	}
 
 }

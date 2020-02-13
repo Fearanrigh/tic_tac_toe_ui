@@ -103,10 +103,8 @@ public class Game implements Constants, Runnable {
 		oPlayer.setBoard(theBoard);
 		
 		socketOut1.println("enableAllButtons");
-//		socketOut1.println(EOM);
 		socketOut2.println("enableAllButtons");
 		socketOut2.println("disable");
-//		socketOut2.println(EOM);
 		
 		// Assigning the referee
 		theRef = new Referee();
