@@ -7,6 +7,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+/**
+ * Client app for the online tic tac toe game
+ * @author Sean Barton
+ *
+ */
 public class Client {
 	
 	private Socket aSocket;
@@ -17,7 +22,12 @@ public class Client {
 	
 	private final String EOM = "EOM"; // end of message terminating string
 
-	
+	/**
+	 * Constructs the client for online gaming
+	 * @param serverName - The server to connect to
+	 * @param portNumber - The server TCP port
+	 * @param client - the client view controller
+	 */
 	public Client (String serverName, int portNumber, ClientController client) {
 		
 		try {
@@ -39,6 +49,9 @@ public class Client {
 		}
 	}
 	
+	/**
+	 * Establishes the communication to the server. This is a receiver message switchboard
+	 */
 	public void communicate () {
 		String line = "";
 		
@@ -89,6 +102,9 @@ public class Client {
 		closeSockets();
 	}
 	
+	/**
+	 * Sets the button as marked with the opponent's mark.
+	 */
 	private void setButtonMark() {
 		String response = "";
 		String coords = "";
@@ -113,10 +129,9 @@ public class Client {
 		}	
 	}
 	
-	public void TEST(String message) {
-		System.out.println(message);
-	}
-	
+	/**
+	 * Sets the UI mark, either X or O
+	 */
 	private void setViewMark() {
 		String response = "";
 		
@@ -133,6 +148,10 @@ public class Client {
 		}
 	}
 	
+	/**
+	 * Receives a TCP message from the server
+	 * @return
+	 */
 	private String receiveMessage() {
 		String response = "";
 		try {
@@ -143,6 +162,9 @@ public class Client {
 		return response;
 	}
 	
+	/**
+	 * Gets the player name from the server
+	 */
 	private void getPlayerName() {
 		String line = "";
 		String response = "";
@@ -158,6 +180,9 @@ public class Client {
 		}
 	}
 	
+	/**
+	 * Closes all client sockets
+	 */
 	private void closeSockets() {
 
 		try {
@@ -169,6 +194,9 @@ public class Client {
 		}
 	}
 	
+	/**
+	 * Gets the players marked row or column from the server
+	 */
 	private void getRowOrColumn() {
 		
 		String response = "";
@@ -190,7 +218,11 @@ public class Client {
 		}
 	}
 
-	
+	/**
+	 * Initiates the game
+	 * @param args - Takes the sever host name
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException{
 		String gameHeading = "tic-tac-toe", initialName = "";
 		int gameWidth = 240, gameHeight = 340;
@@ -199,6 +231,7 @@ public class Client {
 		ClientView view = new ClientView(gameHeading, gameWidth, gameHeight);
 		ClientController clientController = new ClientController(view, player, null, null);
 		clientController.setAllButtonsEnabled(false);
+		// TODO make the following to take the host name, not localhost
 		Client client = new Client ("localhost", 9090, clientController);
 		client.communicate();
 	}
