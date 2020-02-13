@@ -12,8 +12,6 @@ public class Referee {
 	private Player oPlayer;
 	private Board board;
 	
-//	private final String EOM = "EOM";
-	
 	/**
 	 * Constructs nothing
 	 */

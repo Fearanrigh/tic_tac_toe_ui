@@ -15,7 +15,6 @@ public class ClientController {
 	private ClientPlayer player;
 	private PrintWriter socketOut;
 	private BufferedReader socketIn;
-//	private ClientController opponent;
 	
 	private final String EOM = "EOM";
 	
@@ -55,11 +54,6 @@ public class ClientController {
 		return player.getName();
 	}
 	
-//	public void setOpponent(ClientController opponent) {
-//		this.opponent = opponent;
-//		player.setOpponent(opponent.player);
-//	}
-	
 	public void setViewMark(char mark) {
 		gameView.setMarkOutput(mark);
 	}
@@ -80,38 +74,25 @@ public class ClientController {
 		gameView.setButtonMark(row, col, mark);
 	}
 	
-	/**
-	 * Controls the passing of play between controllers
-	 */
-//	public void play() {
-//		String gameResult = player.play();
-//		if (gameResult != null) {
-//			setViewMessage(gameResult);
-//			opponent.setViewMessage(gameResult);
-//			setAllButtonsEnabled(false);
-//			opponent.setAllButtonsEnabled(false);
-//			return;
-//		}
-//		
-//		this.setEnabled(true);
-//		opponent.setEnabled(false);
-//		opponent.setViewMessage("Waiting for player " + player.getMark());
-//		gameView.setMessageOutput("Make your move");
-//		
-//	}
-	
+	protected void setSocketOut(PrintWriter socketOut) {
+		this.socketOut = socketOut;
+	}
+
+	protected void setSocketIn(BufferedReader socketIn) {
+		this.socketIn = socketIn;
+	}
+
 	// *** HELPER METHODS ***
+	/**
+	 * Signals to the server that the button has been pressed and
+	 * by whom.
+	 * @param row - The button row
+	 * @param col - The button column
+	 */
 	private void buttonAction(int row, int col) {
-//		player.getBoard().addMark(row, col, player.getMark());
 		setButtonMark(row, col, player.getMark());
 		setButtonDisabled(row, col);
 		socketOut.println(Integer.toString(row) + Integer.toString(col));
-//		socketOut.println(EOM);
-		
-//		opponent.setButtonMark(row, col, player.getMark());
-//		opponent.setButtonDisabled(row, col);
-//		player.getBoard().display();
-//		opponent.play();
 	}
 	
 	/**
@@ -130,27 +111,10 @@ public class ClientController {
 		gameView.setButtonsEnabled(value);
 	}
 	
-//	public PrintWriter getSocketOut() {
-//		return socketOut;
-//	}
-
-	protected void setSocketOut(PrintWriter socketOut) {
-		this.socketOut = socketOut;
-	}
-
-//	public BufferedReader getSocketIn() {
-//		return socketIn;
-//	}
-
-	protected void setSocketIn(BufferedReader socketIn) {
-		this.socketIn = socketIn;
-	}
-
 	// *** Button Listener Classes ***
 	class Button00 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("Button00 pressed");
 			buttonAction(0, 0);
 		}	
 	}
@@ -158,7 +122,6 @@ public class ClientController {
 	class Button01 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("Button01 pressed");
 			buttonAction(0, 1);
 		}	
 	}
@@ -166,7 +129,6 @@ public class ClientController {
 	class Button02 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("Button02 pressed");
 			buttonAction(0, 2);
 		}	
 	}
@@ -174,7 +136,6 @@ public class ClientController {
 	class Button10 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("Button10 pressed");
 			buttonAction(1, 0);
 		}	
 	}
@@ -182,7 +143,6 @@ public class ClientController {
 	class Button11 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("Button11 pressed");
 			buttonAction(1, 1);
 		}	
 	}
@@ -190,7 +150,6 @@ public class ClientController {
 	class Button12 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("Button12 pressed");
 			buttonAction(1, 2);
 		}	
 	}
@@ -198,7 +157,6 @@ public class ClientController {
 	class Button20 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("Button20 pressed");
 			buttonAction(2, 0);
 		}	
 	}
@@ -206,7 +164,6 @@ public class ClientController {
 	class Button21 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("Button21 pressed");
 			buttonAction(2, 1);
 		}	
 	}
@@ -214,7 +171,6 @@ public class ClientController {
 	class Button22 implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("Button22 pressed");
 			buttonAction(2, 2);
 		}	
 	}

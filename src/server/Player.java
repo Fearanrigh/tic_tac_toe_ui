@@ -2,7 +2,7 @@ package server;
 import java.io.*;
 
 /**
- * The player makes moves on the board
+ * The server side player
  * @author Sean Barton
  *
  */

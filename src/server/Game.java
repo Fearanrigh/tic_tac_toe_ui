@@ -117,7 +117,7 @@ public class Game implements Constants, Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        socketOut1.println(EOM);
-        socketOut2.println(EOM);
+        socketOut1.println(EOM); // closes the sockets for the clients
+        socketOut2.println(EOM); // at the end of the game
 	}
 }

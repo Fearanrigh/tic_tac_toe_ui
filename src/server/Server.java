@@ -10,6 +10,12 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Server side of the client/server UI version of the
+ * tic tac toe game
+ * @author Sean Barton
+ *
+ */
 public class Server {
 
 	private Socket aSocket1, aSocket2;
@@ -19,6 +25,10 @@ public class Server {
 	
 	private ExecutorService pool;
 
+	/**
+	 * Constructs the server on TCP port 9090 with 3 available
+	 * threads.
+	 */
 	public Server() {
 		try {
 			serverSocket = new ServerSocket(9090);
@@ -28,6 +38,10 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Starts the server running, accepting 2 client sockets on a single
+	 * thread.
+	 */
 	public void runServer() {
 		System.out.println("Waiting for first connection...");
 		try {
@@ -61,6 +75,11 @@ public class Server {
 		}
 	}
 
+	/**
+	 * Initiates the server
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 
 		Server myServer = new Server();

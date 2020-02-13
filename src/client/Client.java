@@ -8,7 +8,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
- * Client app for the online tic tac toe game
+ * Client side of the client/server UI version of the
+ * tic tac toe game.
  * @author Sean Barton
  *
  */
@@ -231,8 +232,7 @@ public class Client {
 		ClientView view = new ClientView(gameHeading, gameWidth, gameHeight);
 		ClientController clientController = new ClientController(view, player, null, null);
 		clientController.setAllButtonsEnabled(false);
-		// TODO make the following to take the host name, not localhost
-		Client client = new Client ("localhost", 9090, clientController);
+		Client client = new Client (args[0], 9090, clientController);
 		client.communicate();
 	}
 
