@@ -232,7 +232,13 @@ public class Client {
 		ClientView view = new ClientView(gameHeading, gameWidth, gameHeight);
 		ClientController clientController = new ClientController(view, player, null, null);
 		clientController.setAllButtonsEnabled(false);
-		Client client = new Client (args[0], 9090, clientController);
+		Client client;
+		if(args.length == 0) {
+			client = new Client ("localhost", 9090, clientController);
+		}
+		else {
+			client = new Client (args[0], 9090, clientController);
+		}
 		client.communicate();
 	}
 
